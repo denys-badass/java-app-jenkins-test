@@ -23,10 +23,7 @@ pipeline {
 
   post {
     success {
-      environment {
-        RESULT = currentBuild.result
-      }
-      echo "Pipeline finished with $RESULT status"
+      echo "Pipeline finished with success status"
     }
   }
 }
