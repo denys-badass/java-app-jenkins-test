@@ -22,9 +22,11 @@ pipeline {
   }
 
   post {
-      success {
-          RESULT = currentBuild.result
-          echo "Pipeline finished with $RESULT status"
-        }
+    success {
+      environment {
+        RESULT = currentBuild.result
+      }
+      echo "Pipeline finished with $RESULT status"
     }
+  }
 }
