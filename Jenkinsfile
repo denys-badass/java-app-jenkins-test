@@ -15,15 +15,12 @@ pipeline {
     }
         
     stage('Push') {
+      when {
+          branch 'main'
+      }
       steps {
         echo "Pushing project ..."
       }
-    }
-  }
-
-  post {
-    fixed {
-      echo "Pipeline finished with success status but previous was failed"
     }
   }
 }
