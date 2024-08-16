@@ -19,7 +19,7 @@ pipeline {
           GITHUB_BRANCH = 'main'
         }
       when {
-          expression { GITHUB_BRANCH == 'main' }
+          expression { env.GITHUB_BRANCH == 'main' }
       }
       steps {
         echo "Pushing project ..."
