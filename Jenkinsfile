@@ -10,7 +10,6 @@ pipeline {
         
     stage('Test') {
       steps {
-        RESULT=somevars.env
         echo "Testing project ..."
       }
     }
@@ -23,8 +22,8 @@ pipeline {
   }
 
   post {
-    unsuccessful {
-      echo "Pipeline finished with success status"
+    fixed {
+      echo "Pipeline finished with success status but previous was failed"
     }
   }
 }
