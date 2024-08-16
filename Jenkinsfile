@@ -20,4 +20,11 @@ pipeline {
       }
     }
   }
+
+  post {
+      success {
+          RESULT = currentBuild.result
+          echo "Pipeline finished with $RESULT status"
+        }
+    }
 }
