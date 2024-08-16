@@ -15,8 +15,11 @@ pipeline {
     }
         
     stage('Push') {
+      environment {
+          GITHUB_BRANCH = 'main'
+        }
       when {
-          branch 'main'
+          environment name: 'GITHUB_BRANCH', value: 'main'
       }
       steps {
         echo "Pushing project ..."
