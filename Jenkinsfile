@@ -7,9 +7,16 @@ pipeline {
     }
     
     stages {
+        stage('init') {
+            steps {
+                script {
+                    gv = load 'script.groovy'
+                }
+            }
+        }
         stage('Build') {
             steps {
-                echo "Building project ..."
+                gv.buildApp
             }
         }
         
@@ -20,13 +27,13 @@ pipeline {
                 }
             }
             steps {
-                echo "Testing project ..."
+                gv.testApp
             }
         }
         
-        stage('Push') {
+        stage('Deploy') {
             steps {
-                echo "Pushed app version ${params.VERSION}"
+                gv.deployApp
             }
         }
     }
