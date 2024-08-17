@@ -1,35 +1,32 @@
 pipeline {
     agent any
   
-    tools {
-        maven 'maven-3.9.8'
-    }
-    environment {
-        GITHUB_BRANCH = 'main'
-        USER = 'denys'
-        PWD = 'somepassword'
+    parameters {
+        choice(name: 'VERSION', choices: ['1.1.0', '1.2.0', '1.3.0'], description: 'VERSION of the App')
+        booleanParam(name: 'eecuteTest', defaultValue: true, description: 'do test')
     }
     
     stages {
         stage('Build') {
             steps {
                 echo "Building project ..."
-                maven 'version'
             }
         }
         
         stage('Test') {
+            when {
+                expression {
+                    params.executeTest
+                }
+            }
             steps {
                 echo "Testing project ..."
             }
         }
         
         stage('Push') {
-            when {
-                expression { "$GITHUB_BRANCH" == 'main' }
-            }
             steps {
-                echo "We loged in docker with $USER username and $PWD password"
+                echo "Pushed app version ${params.VERSION}"
             }
         }
     }
