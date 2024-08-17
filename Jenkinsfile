@@ -23,7 +23,11 @@ pipeline {
                 expression { "$GITHUB_BRANCH" == 'main' }
             }
             steps {
-                echo "Pushing project ..."
+                withCredentials([
+                    usernamePassword(credentials: 'docker-hub', usernameVariable: USER, passwordVariable: PWD)
+                ]) {
+                    echo "We loged in docker with $USER username and $PWD password"
+                }
             }
         }
     }
