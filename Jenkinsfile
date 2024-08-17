@@ -26,7 +26,7 @@ pipeline {
                 withCredentials([
                     usernamePassword(credentials: 'docker-hub', usernameVariable: USER, passwordVariable: PWD)
                 ]) {
-                    echo "We loged in docker with $USER username and $PWD password"
+                    sh 'echo "We loged in docker with $USER username and $PWD password"'
                 }
             }
         }
