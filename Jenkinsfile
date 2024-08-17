@@ -3,6 +3,8 @@ pipeline {
   
     environment {
         GITHUB_BRANCH = 'main'
+        USER = 'denys'
+        PWD = 'somepassword'
     }
     
     stages {
@@ -23,11 +25,7 @@ pipeline {
                 expression { "$GITHUB_BRANCH" == 'main' }
             }
             steps {
-                withCredentials([
-                    usernamePassword(credentials: 'docker-hub', usernameVariable: USER, passwordVariable: PWD)
-                ]) {
-                    sh 'echo "We loged in docker with $USER username and $PWD password"'
-                }
+                echo "We loged in docker with $USER username and $PWD password"
             }
         }
     }
