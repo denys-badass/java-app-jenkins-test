@@ -1,6 +1,9 @@
 pipeline {
     agent any
   
+    tools {
+        maven 'maven-3.9.8'
+    }
     environment {
         GITHUB_BRANCH = 'main'
         USER = 'denys'
@@ -11,6 +14,7 @@ pipeline {
         stage('Build') {
             steps {
                 echo "Building project ..."
+                maven 'version'
             }
         }
         
