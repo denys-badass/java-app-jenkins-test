@@ -1,11 +1,11 @@
+def gv
+
 pipeline {
     agent any
   
-    parameters {
-        choice(name: 'VERSION', choices: ['1.1.0', '1.2.0', '1.3.0'], description: 'VERSION of the App')
-        booleanParam(name: 'executeTest', defaultValue: true, description: 'do test')
+    tools {
+      maven 'maven-3.9.8'
     }
-    
     stages {
         stage('init') {
             steps {
@@ -14,7 +14,7 @@ pipeline {
                 }
             }
         }
-        stage('Build') {
+        stage('Build App') {
             steps {
                 script {
                     gv.buildApp()
@@ -22,12 +22,7 @@ pipeline {
             }
         }
         
-        stage('Test') {
-            when {
-                expression {
-                    params.executeTest
-                }
-            }
+        stage('Test App') {
             steps {
                 script {
                     gv.testApp()
@@ -35,18 +30,18 @@ pipeline {
             }
         }
         
-        stage('Deploy') {
-            input {
-                message 'Enter the environment'
-                ok 'Done'
-                parameters {
-                    choice(name: 'ENV', choices: ['dev', 'test', 'prod'], description: 'Environment of deploy')
+        stage('Build Image') {
+            steps {
+                script {
+                    gv.buildImage()
                 }
             }
+        }
+
+        stage('Deploy') {
             steps {
                 script {
                     gv.deployApp()
-                    echo "App has been deployed in ${ENV} environment"
                 }
             }
         }
