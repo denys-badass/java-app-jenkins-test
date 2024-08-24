@@ -11,13 +11,14 @@ pipeline {
             steps {
                 script {
                     gv = load 'script.groovy'
+                    sh "echo Execute pipeline in the $BRANCH_NAME branch"
                 }
             }
         }
         stage('Build App') {
             when {
                 expression {
-                    BRANCHE_NAME == 'main' || BRANCHE_NAME == 'develop'
+                    BRANCH_NAME == 'main' || BRANCHE_NAME == 'develop'
                 }
             }
             steps {
@@ -38,7 +39,7 @@ pipeline {
         stage('Build Image') {
             when {
                 expression {
-                    BRANCHE_NAME == 'main'
+                    BRANCH_NAME == 'main'
                 }
             }
             steps {
@@ -51,7 +52,7 @@ pipeline {
         stage('Deploy') {
             when {
                 expression {
-                    BRANCHE_NAME == 'main'
+                    BRANCH_NAME == 'main'
                 }
             }
             steps {
