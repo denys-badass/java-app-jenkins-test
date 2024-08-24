@@ -15,6 +15,11 @@ pipeline {
             }
         }
         stage('Build App') {
+            when {
+                expression {
+                    BRANCHE_NAME == 'main' || BRANCHE_NAME == 'develop'
+                }
+            }
             steps {
                 script {
                     gv.buildApp()
@@ -31,6 +36,11 @@ pipeline {
         }
         
         stage('Build Image') {
+            when {
+                expression {
+                    BRANCHE_NAME == 'main'
+                }
+            }
             steps {
                 script {
                     gv.buildImage()
@@ -39,6 +49,11 @@ pipeline {
         }
 
         stage('Deploy') {
+            when {
+                expression {
+                    BRANCHE_NAME == 'main'
+                }
+            }
             steps {
                 script {
                     gv.deployApp()
