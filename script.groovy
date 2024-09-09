@@ -1,4 +1,3 @@
-
 def deployApp() {
     echo "Deploy App version..."
 }

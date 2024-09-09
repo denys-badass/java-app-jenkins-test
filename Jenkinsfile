@@ -15,6 +15,7 @@ pipeline {
             steps {
                 script {
                     sh "echo Execute pipeline in the $BRANCH_NAME branch"
+                    gv = load "script.groovy"
                 }
             }
         }
