@@ -1,3 +1,7 @@
+#!/usr/bin/env groovy
+
+
+@Library('shared-lib')
 def gv
 
 pipeline {
@@ -10,7 +14,6 @@ pipeline {
         stage('init') {
             steps {
                 script {
-                    gv = load 'script.groovy'
                     sh "echo Execute pipeline in the $BRANCH_NAME branch"
                 }
             }
@@ -23,7 +26,7 @@ pipeline {
             }
             steps {
                 script {
-                    gv.buildApp()
+                    buildMavenApp()
                 }
             }
         }
@@ -31,7 +34,7 @@ pipeline {
         stage('Test App') {
             steps {
                 script {
-                    gv.testApp()
+                    testMavenApp()
                 }
             }
         }
@@ -44,7 +47,7 @@ pipeline {
             }
             steps {
                 script {
-                    gv.buildImage()
+                    buildDockerImage()
                 }
             }
         }
