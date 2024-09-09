@@ -48,7 +48,7 @@ pipeline {
             }
             steps {
                 script {
-                    buildDockerImage()
+                    buildDockerImage 'dennydobry/test-java-app:jma-1.4'
                 }
             }
         }
